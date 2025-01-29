@@ -156,19 +156,7 @@ const dummyData = [
   },
 ];
 
-const headers = [
-  "employeeId",
-  "employeename",
-  "date",
-  "status",
-  "punchin",
-  "punchout",
-  "duration",
-  "reason",
-];
-
-const result = Object.keys(dummyData[0]);
-console.log(result, 'xsdsffd'); 
+const headers = Object.keys(dummyData[0]);
 
 function Tables() {
   const [data, setData] = useState(dummyData);
@@ -264,7 +252,7 @@ function Tables() {
           left: leftPosition + window.scrollX, // Adjusted position
         });
       }
-      setActiveFilterColumn(key); 
+      setActiveFilterColumn(key);
     }
   };
 
@@ -301,11 +289,10 @@ function Tables() {
     setFilterValue("");
     setData(dummyData);
     setActiveFilterColumn(null);
-
   };
 
   return (
-    <div className="relative " style={{ overflowX: "auto", }}>
+    <div className="relative " style={{ overflowX: "auto" }}>
       <table ref={tableRef} className="table">
         <thead style={{ backgroundColor: "#F6F7FB" }}>
           <tr>
