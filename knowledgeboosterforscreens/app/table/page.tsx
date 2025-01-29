@@ -167,6 +167,9 @@ const headers = [
   "reason",
 ];
 
+const result = Object.keys(dummyData[0]);
+console.log(result, 'xsdsffd'); 
+
 function Tables() {
   const [data, setData] = useState(dummyData);
   const [sortConfig, setSortConfig] = useState<{
@@ -231,14 +234,37 @@ function Tables() {
       const target = event.currentTarget as HTMLElement;
       const rect = target.getBoundingClientRect(); // Get position of the clicked filter icon
 
-      console.log("target", target, "rect", rect);
+      const thElement = target.closest("th"); // Get the header cell
+      const tableElement = thElement?.closest("table"); // Find the table
 
-      setFilterBoxPosition({
-        top: rect.bottom + window.scrollY + 5, // Position below the header
-        left: rect.left + window.scrollX, // Align with the clicked column
-      });
+      if (thElement && tableElement) {
+        const thRect = thElement.getBoundingClientRect();
+        const tableRect = tableElement.getBoundingClientRect();
 
-      setActiveFilterColumn(key); // Set active filter column
+        // Get the first letter position
+        const textNode = thElement.firstChild;
+        let leftPosition = thRect.left;
+
+        if (textNode) {
+          const range = document.createRange();
+          range.setStart(textNode, 0);
+          range.setEnd(textNode, 1); // Select first letter
+          const textRect = range.getBoundingClientRect();
+          leftPosition = textRect.left;
+        }
+
+        // Ensure the filter box stays inside the table
+        const filterBoxWidth = 200; // Adjust based on your filter box width
+        if (leftPosition + filterBoxWidth > tableRect.right) {
+          leftPosition = tableRect.right - filterBoxWidth - 10; // Adjust to fit inside
+        }
+
+        setFilterBoxPosition({
+          top: thRect.bottom + window.scrollY + 5, // Below the header
+          left: leftPosition + window.scrollX, // Adjusted position
+        });
+      }
+      setActiveFilterColumn(key); 
     }
   };
 
@@ -265,6 +291,7 @@ function Tables() {
     });
 
     setData(filteredData);
+    setActiveFilterColumn(null);
   };
 
   // Clear filter
@@ -273,10 +300,12 @@ function Tables() {
     setFilterOperator("equal");
     setFilterValue("");
     setData(dummyData);
+    setActiveFilterColumn(null);
+
   };
 
   return (
-    <div className="relative" style={{ overflowX: "auto" }}>
+    <div className="relative " style={{ overflowX: "auto", }}>
       <table ref={tableRef} className="table">
         <thead style={{ backgroundColor: "#F6F7FB" }}>
           <tr>
@@ -328,9 +357,9 @@ function Tables() {
       {/* Filter Box - Position dynamically */}
       {activeFilterColumn && (
         <div
-          className="card card-body"
+          className="card card-body px-0 py-2"
           style={{
-            width: "18em",
+            width: "10em",
             position: "absolute",
             top: `${filterBoxPosition.top}px`,
             left: `${filterBoxPosition.left}px`,
@@ -389,7 +418,7 @@ function Tables() {
             )}
           </div>
 
-          <div className="d-flex gap-2 justify-content-end mt-2">
+          <div className="d-flex gap-2 justify-content-end mt-2 p-2">
             <button className="btn btn-primary" onClick={handleFilter}>
               Filter
             </button>
