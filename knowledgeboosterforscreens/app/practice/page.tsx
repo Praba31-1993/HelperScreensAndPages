@@ -3,10 +3,12 @@ import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { profiledetails } from "./jsondatas";
+import Popup from "../popup/page";
 
 export default function Practice() {
   const [profileList, setProfileList] = useState<any[]>(profiledetails);
   const [selectedValue, setSelectedValue] = useState<string>("");
+  const [show, setShow] = useState<boolean>(false);
 
   const handleFilter = (key: keyof (typeof profiledetails)[0]) => {
     console.log("keydata", typeof key);
@@ -37,22 +39,24 @@ export default function Practice() {
     console.log(
       `Showing items from index ${startPageItem} to ${endPageItem - 1}`
     );
-  
+
     let arr: typeof profileList = []; // Define array outside the loop
-  
-    for (let i = startPageItem; i < endPageItem && i < profileList.length; i++) {
+
+    for (
+      let i = startPageItem;
+      i < endPageItem && i < profileList.length;
+      i++
+    ) {
       arr.push(profileList[i]); // Push items into the array
     }
-  
-    console.log('Paginated Items:', arr);
+
+    console.log("Paginated Items:", arr);
     setProfileList(arr); // Update state with the paginated items
   };
-  
-  
-  
 
   return (
     <div className="p-3">
+        {show && <Popup close={()=>setShow(false)} open={show}/>}
       <div className="d-flex justify-content-end m-3">
         <div className="w-20 d-flex gap-3">
           <label className="mt-2">Filtered by</label>
@@ -97,6 +101,7 @@ export default function Practice() {
                 <FontAwesomeIcon
                   icon={faEye}
                   style={{ cursor: "pointer", height: "13px" }}
+                  onClick={() => setShow(p=>!p)}
                 />
               </td>
               <td>
