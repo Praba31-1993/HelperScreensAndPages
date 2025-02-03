@@ -7,22 +7,20 @@ function PrimeAndArmstrong() {
 
   const checkPrime = () => {
     const num = Number(firstValue);
-    if (isNaN(num)) {
-      setResult("Please enter a valid number.");
-      return;
-    }
+  
     if (num < 2) {
-      setResult(`${firstValue} is not a Prime Number`);
+      setResult(`${num} is Not a Prime Number`);
       return;
     }
-    let isPrime = true;
-    for (let i = 2; i <= Math.sqrt(num); i++) {
+  
+    for (let i = 2; i < num; i++) {
       if (num % i === 0) {
-        isPrime = false;
-        break;
+        setResult(`${num} is Not a Prime Number`);
+        return; 
       }
     }
-    setResult(isPrime ? `${firstValue} is a Prime Number` : `${firstValue} is not a Prime Number`);
+  
+    setResult(`${num} is a Prime Number`);
   };
 
   const checkArmstrong = () => {
