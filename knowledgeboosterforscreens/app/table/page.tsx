@@ -328,10 +328,7 @@ function Tables() {
               <td className="para textheader">{item?.employeeId}</td>
               <td className="para textheader">{item?.employeename}</td>
               <td className="para textheader">{item?.date}</td>
-              <td className="para textheader">
-                {/* <ChipsForLeave label={item?.status} /> */}
-                {item?.status}
-              </td>
+              <td className="para textheader">{item?.status}</td>
               <td className="para textheader">{item?.punchin}</td>
               <td className="para textheader">{item?.punchout}</td>
               <td className="para textheader">{item?.duration}</td>
@@ -400,6 +397,9 @@ function Tables() {
                   value={filterValue}
                   onChange={(e) => setFilterValue(e.target.value)}
                   placeholder={`Enter ${activeFilterColumn} value`}
+
+
+                  
                 />
               </>
             )}
@@ -420,3 +420,6 @@ function Tables() {
 }
 
 export default Tables;
+
+
+
