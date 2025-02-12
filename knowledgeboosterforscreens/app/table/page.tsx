@@ -156,7 +156,8 @@ const dummyData = [
   },
 ];
 
-const headers = Object.keys(dummyData[0]);
+// const dummyData: any = [];
+const headers = dummyData.length > 0 ? Object.keys(dummyData[0]) : [];
 
 function Tables() {
   const [data, setData] = useState(dummyData);
@@ -211,7 +212,7 @@ function Tables() {
 
   // Function to toggle the filter box and set its position
   const handleFilterToggle = (
-    key: keyof (typeof dummyData)[0],
+    key: keyof (typeof dummyData)[0]|any,
     event: React.MouseEvent
   ) => {
     if (activeFilterColumn === key) {
@@ -260,7 +261,7 @@ function Tables() {
   const handleFilter = () => {
     if (!filterKey) return;
 
-    const filteredData = dummyData.filter((item) => {
+    const filteredData = dummyData?.filter((item: any) => {
       if (filterKey === "date") {
         const [year, month, day] = item.date.split("-"); // Extract Y-M-D
 
@@ -323,18 +324,26 @@ function Tables() {
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
-            <tr key={item.employeeId}>
-              <td className="para textheader">{item?.employeeId}</td>
-              <td className="para textheader">{item?.employeename}</td>
-              <td className="para textheader">{item?.date}</td>
-              <td className="para textheader">{item?.status}</td>
-              <td className="para textheader">{item?.punchin}</td>
-              <td className="para textheader">{item?.punchout}</td>
-              <td className="para textheader">{item?.duration}</td>
-              <td className="para textheader">{item?.reason}</td>
+          {data.length > 0 ? (
+            data.map((item: any) => (
+              <tr key={item.employeeId}>
+                <td className="para textheader">{item?.employeeId}</td>
+                <td className="para textheader">{item?.employeename}</td>
+                <td className="para textheader">{item?.date}</td>
+                <td className="para textheader">{item?.status}</td>
+                <td className="para textheader">{item?.punchin}</td>
+                <td className="para textheader">{item?.punchout}</td>
+                <td className="para textheader">{item?.duration}</td>
+                <td className="para textheader">{item?.reason}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={headers.length} className="text-center p-4">
+                No data available
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
 
@@ -397,9 +406,6 @@ function Tables() {
                   value={filterValue}
                   onChange={(e) => setFilterValue(e.target.value)}
                   placeholder={`Enter ${activeFilterColumn} value`}
-
-
-                  
                 />
               </>
             )}
@@ -420,6 +426,3 @@ function Tables() {
 }
 
 export default Tables;
-
-
-
