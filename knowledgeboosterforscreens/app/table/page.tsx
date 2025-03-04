@@ -1,14 +1,13 @@
 "use client";
-import { faFilter, faSort } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import React, { useState, useRef } from "react";
 
 const dummyData = [
   {
     employeeId: "SR389",
-    employeename: "Rajan",
+    employeename: "rajan",
     date: "2022-12-03",
-    status: "Present",
+    status: "present",
     punchin: "12:00pm",
     punchout: "09:00pm",
     duration: "09:00",
@@ -18,7 +17,7 @@ const dummyData = [
     employeeId: "SR390",
     employeename: "Anjali",
     date: "2022-12-04",
-    status: "Present",
+    status: "present",
     punchin: "09:00am",
     punchout: "06:00pm",
     duration: "09:00",
@@ -26,7 +25,7 @@ const dummyData = [
   },
   {
     employeeId: "SR391",
-    employeename: "Manish",
+    employeename: "manish",
     date: "2022-12-05",
     status: "Sick Leave",
     punchin: "-",
@@ -36,17 +35,17 @@ const dummyData = [
   },
   {
     employeeId: "SR392",
-    employeename: "Priya",
+    employeename: "priya",
     date: "2022-12-06",
-    status: "Present",
+    status: "present",
     punchin: "10:00am",
     punchout: "07:00pm",
     duration: "09:00",
-    reason: "None",
+    reason: "none",
   },
   {
     employeeId: "SR393",
-    employeename: "Vikram",
+    employeename: "vikram",
     date: "2022-12-07",
     status: "Late",
     punchin: "11:00am",
@@ -56,9 +55,9 @@ const dummyData = [
   },
   {
     employeeId: "SR394",
-    employeename: "Neha",
+    employeename: "neha",
     date: "2022-12-08",
-    status: "Present",
+    status: "present",
     punchin: "09:30am",
     punchout: "06:30pm",
     duration: "09:00",
@@ -66,9 +65,9 @@ const dummyData = [
   },
   {
     employeeId: "SR395",
-    employeename: "Arjun",
+    employeename: "arjun",
     date: "2022-12-09",
-    status: "Present",
+    status: "present",
     punchin: "09:15am",
     punchout: "06:15pm",
     duration: "09:00",
@@ -76,7 +75,7 @@ const dummyData = [
   },
   {
     employeeId: "SR396",
-    employeename: "Divya",
+    employeename: "divya",
     date: "2022-12-10",
     status: "Half Day",
     punchin: "09:00am",
@@ -86,9 +85,9 @@ const dummyData = [
   },
   {
     employeeId: "SR397",
-    employeename: "Karan",
+    employeename: "karan",
     date: "2022-12-11",
-    status: "Present",
+    status: "present",
     punchin: "08:45am",
     punchout: "05:45pm",
     duration: "09:00",
@@ -96,7 +95,7 @@ const dummyData = [
   },
   {
     employeeId: "SR398",
-    employeename: "Simran",
+    employeename: "simran",
     date: "2022-12-12",
     status: "Casual Leave",
     punchin: "-",
@@ -106,9 +105,9 @@ const dummyData = [
   },
   {
     employeeId: "SR399",
-    employeename: "Amit",
+    employeename: "amit",
     date: "2022-12-13",
-    status: "Present",
+    status: "present",
     punchin: "09:00am",
     punchout: "06:00pm",
     duration: "09:00",
@@ -116,7 +115,7 @@ const dummyData = [
   },
   {
     employeeId: "SR400",
-    employeename: "Sara",
+    employeename: "sara",
     date: "2022-12-14",
     status: "Late",
     punchin: "10:30am",
@@ -126,9 +125,9 @@ const dummyData = [
   },
   {
     employeeId: "SR401",
-    employeename: "Rahul",
+    employeename: "rahul",
     date: "2022-12-15",
-    status: "Present",
+    status: "present",
     punchin: "09:00am",
     punchout: "06:00pm",
     duration: "09:00",
@@ -136,9 +135,9 @@ const dummyData = [
   },
   {
     employeeId: "SR402",
-    employeename: "Pooja",
+    employeename: "pooja",
     date: "2022-11-16",
-    status: "Present",
+    status: "present",
     punchin: "09:00am",
     punchout: "06:00pm",
     duration: "09:00",
@@ -146,7 +145,7 @@ const dummyData = [
   },
   {
     employeeId: "SR403",
-    employeename: "Rohan",
+    employeename: "rohan",
     date: "2024-12-17",
     status: "Half Day",
     punchin: "09:00am",
@@ -212,7 +211,7 @@ function Tables() {
 
   // Function to toggle the filter box and set its position
   const handleFilterToggle = (
-    key: keyof (typeof dummyData)[0]|any,
+    key: keyof (typeof dummyData)[0] | any,
     event: React.MouseEvent
   ) => {
     if (activeFilterColumn === key) {
@@ -299,17 +298,15 @@ function Tables() {
           <tr>
             {headers.map((key) => (
               <th key={key} scope="col" className="position-relative">
-                {key.toUpperCase()}
+                {key.charAt(0).toUpperCase()+key.slice(1)}
                 <span className="d-inline-flex gap-2 ms-2">
-                  <FontAwesomeIcon
-                    icon={faSort}
+                  <div
                     style={{ cursor: "pointer", height: "13px" }}
                     onClick={() =>
                       handleSort(key as keyof (typeof dummyData)[0])
                     }
                   />
-                  <FontAwesomeIcon
-                    icon={faFilter}
+                  <div
                     style={{ cursor: "pointer", height: "13px" }}
                     onClick={(event: any) =>
                       handleFilterToggle(
@@ -328,7 +325,7 @@ function Tables() {
             data.map((item: any) => (
               <tr key={item.employeeId}>
                 <td className="para textheader">{item?.employeeId}</td>
-                <td className="para textheader">{item?.employeename}</td>
+                <td className="para textheader">{item?.employeename.charAt(0).toUpperCase()+item?.employeename.slice(1)}</td>
                 <td className="para textheader">{item?.date}</td>
                 <td className="para textheader">{item?.status}</td>
                 <td className="para textheader">{item?.punchin}</td>
