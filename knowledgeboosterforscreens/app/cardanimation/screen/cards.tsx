@@ -1,10 +1,5 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChartSimple,
-  faThumbsUp,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+
 import "../cardanimation.css";
 
 function CardScreen({ salesList }: any) {
@@ -16,10 +11,7 @@ function CardScreen({ salesList }: any) {
           <div className="card-header">
             <div className="d-flex justify-content-between align-items-center">
               <p className="mb-0">Sales Report</p>
-              <FontAwesomeIcon
-                icon={faChartSimple}
-                style={{ cursor: "pointer", height: "19px" }}
-              />
+            
             </div>
           </div>
           <div className="card-body">
@@ -28,23 +20,7 @@ function CardScreen({ salesList }: any) {
           </div>
         </div>
 
-        {/* Back Side (Status) */}
-        <div className="card-back">
-          {salesList?.status === "Closed" ? (
-            <FontAwesomeIcon
-              icon={faTrash}
-              style={{ cursor: "pointer", height: "100px" }}
-              title="Closed"
-            />
-          ) : (
-            <FontAwesomeIcon
-              icon={faThumbsUp}
-              style={{ cursor: "pointer", height: "100px" }}
-              title="Inprogress"
-
-            />
-          )}
-        </div>
+       
       </div>
     </div>
   );

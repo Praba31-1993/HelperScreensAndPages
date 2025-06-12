@@ -1,14 +1,19 @@
 "use client";
-import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
+
 import { profiledetails } from "./jsondatas";
-import Popup from "../popup/page";
+
+import { getEmployee, UpdateEmployee } from "@/app/api/listingapi";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export default function Practice() {
   const [profileList, setProfileList] = useState<any[]>(profiledetails);
+  const [employees, setEmployee] = useState<any[]>();
+  const [isEdit, setIsEdit] = useState<boolean>(false);
   const [selectedValue, setSelectedValue] = useState<string>("");
   const [show, setShow] = useState<boolean>(false);
+  const [editId, setEditId] = useState<any>();
+  const [name, setName] = useState<string>("");
 
   const handleFilter = (key: keyof (typeof profiledetails)[0]) => {
     console.log("keydata", typeof key);
@@ -54,9 +59,21 @@ export default function Practice() {
     setProfileList(arr); // Update state with the paginated items
   };
 
+  const fetchEmployee = async () => {
+    try {
+      const response = await getEmployee();
+      console.log("empData", response.data);
+      setEmployee(response.data); // Assuming you want to store the actual data
+    } catch (error) {
+      console.error("Error fetching employee data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchEmployee();
+  }, [isEdit]);
+
   return (
     <div className="p-3">
-        {show && <Popup close={()=>setShow(false)} open={show}/>}
       <div className="d-flex justify-content-end m-3">
         <div className="w-20 d-flex gap-3">
           <label className="mt-2">Filtered by</label>
@@ -80,36 +97,55 @@ export default function Practice() {
       <table className="table">
         <thead className="thead-light">
           <tr>
-            <th scope="col">SNO</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
-            <th scope="col">Company</th>
+            <th scope="col">Mobile</th>
+            <th scope="col">Address</th>
+            <th scope="col">Blood Group</th>
             <th scope="col">Role</th>
-            <th scope="col">Personal Details</th>
+            <th scope="col">Salary Type</th>
+            <th scope="col">Company Name</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
-          {profileList?.map((profile: any, index: number) => (
-            <tr key={profile?.id}>
-              <th>{profile?.id}</th>
-              <td>{profile?.firstName + profile?.lastName}</td>
-              <td>{profile?.email}</td>
-              <td>{profile?.company}</td>
-              <td>{profile?.jobTitle}</td>
+          {employees?.map((employee: any, index: number) => (
+            <tr key={employee?.id}>
               <td>
-                <FontAwesomeIcon
-                  icon={faEye}
-                  style={{ cursor: "pointer", height: "13px" }}
-                  onClick={() => setShow(p=>!p)}
-                />
+                {isEdit && employee?.id === editId ? (
+                  <input
+                    type="text"
+                    value={name !== "" ? name : employee?.name || ""}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                ) : (
+                  employee?.name
+                )}
               </td>
+              <td>{employee?.email}</td>
+              <td>{employee?.mobile}</td>
+              <td>{employee?.address}</td>
+              <td>{employee?.bloodGroup}</td>
+              <td>{employee?.role}</td>
+              <td>{employee?.salaryType}</td>
+              <td>{employee?.companyName}</td>
               <td>
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  style={{ cursor: "pointer", height: "13px" }}
-                  onClick={() => handleDelete(profile?.id)}
-                />
+                {isEdit ? (
+                  <p
+                    onClick={() => {
+                      UpdateEmployee(editId, { name: name }), fetchEmployee; setIsEdit(false)
+                    }}
+                  >
+                    Complete Edit
+                  </p>
+                ) : (
+                  <i
+                    className="bi bi-pencil"
+                    onClick={() => {
+                      setIsEdit(true), setEditId(employee.id);
+                    }}
+                  ></i>
+                )}
               </td>
             </tr>
           ))}
