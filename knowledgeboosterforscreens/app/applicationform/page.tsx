@@ -16,8 +16,8 @@ function JobApplicationForm() {
 
   return (
     <div className="row">
-      <div className="col-md-6"></div>
-      <div className="col-md-6">
+      <div className="col-md-6" style={{background:'ghostwhite'}}></div>
+      <div className="col-md-6" style={{background:'linen'}}>
         <div className="p-4">
           <div className="d-flex w-100 justify-content-between align-items-center mb-5">
             <p>New Job Application Form</p>
