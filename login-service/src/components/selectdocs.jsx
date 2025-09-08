@@ -4,15 +4,11 @@ function SelectDocs() {
   const list = [
     { id: "645", name: "docker" },
     { id: "646", name: "linux" },
-    { id: "648", name: "king" }
+    { id: "648", name: "king" }, // king is also in the list
   ];
 
-  const textData = ["king"]; // ✅ array of default selected names
-
-  // pick the first matching default item
-  const defaultItem = list.find((item) => textData.includes(item.name));
-
-  const [selectedValue, setSelectedValue] = useState(defaultItem?.id || "");
+  const textData = { id: "648", name: "king" }; // default selected item
+  const [selectedValue, setSelectedValue] = useState(textData.id);
 
   return (
     <div>
@@ -24,7 +20,7 @@ function SelectDocs() {
           <option
             key={data.id}
             value={data.id}
-            hidden={data.id === selectedValue} // ✅ hide currently selected one
+            hidden={data.id === textData.id} // ✅ hide 'king' from dropdown
           >
             {data.name}
           </option>
