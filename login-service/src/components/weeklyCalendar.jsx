@@ -1,8 +1,8 @@
 import React from "react";
 
 function RangeAlignedCalendar({ 
-  rangeStart = "2025-09-15", 
-  rangeEnd = "2025-09-25", 
+  rangeStart = "2025-09-01", 
+  rangeEnd = "2025-09-07", 
   joiningDate = "2025-09-18" 
 }) {
   // --- Helpers ---
