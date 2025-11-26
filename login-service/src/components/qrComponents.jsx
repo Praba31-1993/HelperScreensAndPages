@@ -1,8 +1,15 @@
 import React, { useState } from "react";
-    import QRCode from 'react-qr-code';
+import QRCode from "react-qr-code";
 
 const QrComponents = () => {
-  const [formData, setFormData] = useState({ name: "", email: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    lastname: "",
+    email: "",
+    mobile: "",
+    address: "",
+  });
+
   const [qrData, setQrData] = useState("");
   const [scanResult, setScanResult] = useState("");
 
@@ -17,51 +24,82 @@ const QrComponents = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="container mt-5">
       <h2>Form → Generate QR → Scan</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          name="name"
-          placeholder="Enter Name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <br /><br />
+      <div className="row">
+        {/* First Name */}
+        <div className="col-6 mb-3">
+          <p>First Name</p>
+          <input
+            name="name"
+            placeholder="Enter Name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </div>
 
-        <input
-          name="email"
-          placeholder="Enter Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <br /><br />
+        {/* Last Name */}
+        <div className="col-6 mb-3">
+          <p>Last Name</p>
+          <input
+            name="lastname"
+            placeholder="Enter your Last Name"
+            value={formData.lastname}
+            onChange={handleChange}
+          />
+        </div>
 
-        <button type="submit">Generate QR Code</button>
-      </form>
+        {/* Email */}
+        <div className="col-6 mb-3">
+          <p>Email</p>
+          <input
+            name="email"
+            placeholder="Enter your Email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </div>
 
-      <br /><br />
+        {/* Mobile */}
+        <div className="col-6 mb-3">
+          <p>Mobile Number</p>
+          <input
+            name="mobile"
+            placeholder="Enter your mobile number"
+            value={formData.mobile}
+            onChange={handleChange}
+          />
+        </div>
+
+        {/* Address */}
+        <div className="col-6 mb-3">
+          <p>Address</p>
+          <input
+            name="address"
+            placeholder="Enter your Address"
+            value={formData.address}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="col-2">
+          <button onClick={handleSubmit}>Submit</button>
+        </div>
+      </div>
 
       {qrData && (
-        <div>
+        <div className="mt-4">
           <h3>Your QR Code:</h3>
           <QRCode value={qrData} size={200} />
         </div>
       )}
 
-      <br /><br />
+      <br />
 
       <h3>Scan QR Code</h3>
-      {/* <QRCode
-        delay={300}
-        onError={(err) => console.log(err)}
-        onScan={(data) => {
-          if (data) {
-            setScanResult(data);
-          }
-        }}
-        style={{ width: "300px" }}
-      /> */}
+
+      {/* QR Scanner (commented by you) */}
 
       {scanResult && (
         <div>
