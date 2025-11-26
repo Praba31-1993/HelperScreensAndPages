@@ -11,7 +11,9 @@ const QrComponents = () => {
   });
 
   const [qrData, setQrData] = useState("");
-  const [scanResult, setScanResult] = useState("");
+  // const [scanResult, setScanResult] = useState("");
+
+  const scanResult =""
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
