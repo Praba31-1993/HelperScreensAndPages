@@ -31,7 +31,7 @@ const QrComponents = () => {
 
       <div className="row">
         {/* First Name */}
-        <div className="col-6 mb-3">
+        <div className="col-12 col-md-6 mb-3">
           <p>First Name</p>
           <input
             name="name"
@@ -42,7 +42,7 @@ const QrComponents = () => {
         </div>
 
         {/* Last Name */}
-        <div className="col-6 mb-3">
+        <div className="col-12 col-md-6 mb-3">
           <p>Last Name</p>
           <input
             name="lastname"
@@ -53,7 +53,7 @@ const QrComponents = () => {
         </div>
 
         {/* Email */}
-        <div className="col-6 mb-3">
+        <div className="col-12 col-md-6 mb-3">
           <p>Email</p>
           <input
             name="email"
@@ -64,7 +64,7 @@ const QrComponents = () => {
         </div>
 
         {/* Mobile */}
-        <div className="col-6 mb-3">
+        <div className="col-12 col-md-6 mb-3">
           <p>Mobile Number</p>
           <input
             name="mobile"
@@ -75,7 +75,7 @@ const QrComponents = () => {
         </div>
 
         {/* Address */}
-        <div className="col-6 mb-3">
+        <div className="col-12 col-md-6 mb-3">
           <p>Address</p>
           <input
             name="address"
